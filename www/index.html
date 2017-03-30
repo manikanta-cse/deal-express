@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+
+    <!-- external js -->
+    <script src="lib/external/underscore-min.js"></script>
+    <script src="lib/external/google-places-browser.js"></script>
+    <!-- Un comment below line and comment above line while deploying -->
+    <!--<script src="lib/external/google-places-android.js"></script>-->
+
+    <!-- your app's js -->
+    <script src="js/app.js"></script>
+    <script src="js/services/googleApi.js"></script>
+    <script src="js/services/stateService.js"></script>
+    <script src="js/services/paymentStructureSvc.js"></script>
+
+    <script src="js/controllers/account-controller.js"></script>
+
+
+    <!--Services-->
+    <script src="js/services/vehicleSvc.js"></script>
+    <script src="js/services/paymentSvc.js"></script>
+    <script src="js/services/storageSvc.js"></script>
+
+    <!--Controller-->
+
+    <script src="js/controllers/vehicleCtrl.js"></script>
+    <script src="js/controllers/vehicleDetailCtrl.js"></script>
+    <script src="js/controllers/storeCtrl.js"></script>
+    <script src="js/controllers/paymentStructureCtrl.js"></script>
+
+    <!--Directives-->
+    <script src="js/directives/googleAddressAutoComplete.js"></script>
+    <script src="js/directives/paymentDirective.js"></script>
+    <script src="js/directives/disableTap.js"></script>
+    <script src="js/directives/fallbackSrcDirective.js"></script>
+
+  </head>
+
+  <body ng-app="starter">
+    <ion-nav-view></ion-nav-view>
+  </body>
+</html>

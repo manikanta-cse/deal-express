@@ -1,0 +1,35 @@
+<ion-view id="store" title="Store Details">
+  <ion-content>
+    <div class="list list-inset">
+      <label class="item item-input">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input type="text" ng-model="search.$" placeholder="Search">
+      </label>
+    </div>
+
+    <div class="card" ng-repeat="store in stores | filter:search">
+      <ion-radio icon="ion-checkmark-circled balanced" ng-model="store.selectedStore" ng-click="selectStore(store.id,store.name)"
+                 value="{{store.id}}">
+        <a class="item item-icon-left item-divider">
+          {{store.name}}
+        </a>
+
+        <a class="item item-icon-left card-border">
+          <i class="icon ion-android-pin balanced"></i>
+
+          <p>
+            {{store.address.streetAddress}}
+          </p>
+
+          <p>
+            {{store.address.city}}
+          </p>
+
+          <p>
+            {{store.address.stateCode}} -{{store.address.postalCode}}
+          </p>
+        </a>
+      </ion-radio>
+    </div>
+  </ion-content>
+</ion-view>

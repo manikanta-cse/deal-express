@@ -1,0 +1,127 @@
+<ion-view title="Quote breakup">
+    <ion-content>
+        <ion-item class="item-stable">
+            <div class="row">
+                <div class="col col-10"></div>
+                <div class="col">Store</div>
+                <div class="col col-25"><span ng-bind="storeName" class="item-text-wrap"></span></div>
+            </div>
+        </ion-item>
+
+        <ion-item class="item-stable"
+                  ng-click="toggleGroup(paymentDetails.fees)"
+                  ng-class="{active: isGroupShown(paymentDetails.fees)}">
+            <div class="row">
+                <div class="col col-10"><i class="icon" ng-show="hasItems(paymentDetails.fees)"
+                                           ng-class="isGroupShown(paymentDetails.fees) ? 'ion-minus' : 'ion-plus'"></i>
+                </div>
+                <div class="col">Fees</div>
+                <div class="col col-25"><span ng-bind="getTotalFee()|currency"></span></div>
+            </div>
+        </ion-item>
+        <ion-item class="item-accordion"
+                  ng-repeat="fee in paymentDetails.fees"
+                  ng-show="isGroupShown(paymentDetails.fees)">
+            <div class="row">
+                <div class="col col-offset-10 item-text-wrap"><span ng-bind="fee.name"></span></div>
+                <div class="col col-25"><span ng-bind="fee.value | currency"></span></div>
+            </div>
+        </ion-item>
+        <ion-item class="item-stable"
+                  ng-click="toggleGroup(paymentDetails.taxes)"
+                  ng-class="{active: isGroupShown(paymentDetails.taxes)}">
+            <div class="row">
+                <div class="col col-10"><i class="icon" ng-show="hasItems(paymentDetails.taxes)"
+                                           ng-class="isGroupShown(paymentDetails.taxes) ? 'ion-minus' : 'ion-plus'"></i>
+                </div>
+                <div class="col">Taxes</div>
+                <div class="col col-25"><span ng-bind="getTotalTax()|currency"></span></div>
+            </div>
+        </ion-item>
+        <ion-item class="item-accordion wrap"
+                  ng-repeat="tax in paymentDetails.taxes"
+                  ng-show="isGroupShown(paymentDetails.taxes)">
+            <div class="row item-text-wrap">
+                <div class="col col-offset-10 col-40"><span ng-bind="tax.name"></span></div>
+                <div class="col col-25">@ <span ng-bind="tax.rate"></span>%</div>
+                <div class="col col-25"><span ng-bind="tax.amount | currency"></span></div>
+            </div>
+        </ion-item>
+        <ion-item class="item-stable"
+                  ng-click="toggleGroup(paymentDetails.rebates)"
+                  ng-class="{active: isGroupShown(paymentDetails.rebates)}">
+            <div class="row">
+                <div class="col col-10"><i class="icon" ng-show="hasItems(paymentDetails.rebates)"
+                                           ng-class="isGroupShown(paymentDetails.rebates) ? 'ion-minus' : 'ion-plus'"></i>
+                </div>
+                <div class="col">Rebates</div>
+                <div class="col col-25"><span ng-bind="getTotalRebates()|currency"></span></div>
+            </div>
+        </ion-item>
+        <ion-item class="item-accordion"
+                  ng-repeat="rebate in paymentDetails.rebates"
+                  ng-show="isGroupShown(paymentDetails.rebates)">
+            <div class="row">
+                <div class="col col-10"></div>
+                <div class="col"><span ng-bind="rebate.name"></span></div>
+                <div class="col col-25"><span ng-bind="rebate.value | currency"></span></div>
+            </div>
+        </ion-item>
+
+        </ion-list>
+        <ion-list>
+            <ion-item class="item-stable">
+                <div class="row">
+                    <div class="col col-10"></div>
+                    <div class="col ">Credit Status</div>
+                    <div class="col col-25"><span ng-bind="creditStatus"></span></div>
+                </div>
+            </ion-item>
+        </ion-list>
+        <ion-list>
+            <ion-item class="item-stable">
+                <div class="row">
+                    <div class="col col-10"></div>
+                    <div class="col">Term</div>
+                    <div class="col col-25"><span ng-bind="paymentDetails.term"></span></div>
+                </div>
+            </ion-item>
+        </ion-list>
+
+        <ion-list ng-if="paymentDetails.dealType!=='Cash'">
+            <ion-item class="item-stable">
+                <div class="row">
+                    <div class="col col-10"></div>
+                    <div class="col ">Payment</div>
+                    <div class="col col-25 item-text-wrap">@ <span ng-bind="paymentDetails.rate"></span> {{paymentDetails.dealType ===
+                        'Lease' ?'MF' : '%'}}
+                    </div>
+                    <div class="col col-25"><span ng-bind="paymentDetails.payment | currency"></span></div>
+                </div>
+            </ion-item>
+        </ion-list>
+        <ion-list>
+            <ion-item class="item-stable">
+                <div class="row">
+                    <div class="col col-10"></div>
+                    <div class="col">Total Price</div>
+                    <div class="col col-25"><span ng-bind="paymentDetails.cashPrice | currency"></span></div>
+                </div>
+            </ion-item>
+        </ion-list>
+        <ion-list>
+            <div class="item center" ng-if="!showMsg">
+                <button class="button button-medium button-block button-balanced center" ng-click="makeaDeal()">
+                    Make a Deal
+                    <i class="ion-thumbsup icon"></i>
+                </button>
+            </div>
+
+            <div class="item center item-text-wrap" ng-if="showMsg">
+                <label class="balanced">
+                    <i class="icon ion-checkmark-circled"></i>&nbsp;&nbsp;<b>Yay, sit back and relax. we will get your
+                    vehicle ready.</b>
+                </label>
+            </div>
+    </ion-content>
+</ion-view>

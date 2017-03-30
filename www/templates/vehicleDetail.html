@@ -1,0 +1,167 @@
+<ion-view>
+  <ion-nav-title>{{vehicle.make.label}} {{vehicle.model.label}}</ion-nav-title>
+
+  <ion-content>
+    <div>
+      <div class="card">
+
+        <div class="item item-divider">
+          <span ng-if="vehicle.style.label">{{vehicle.style.label}}</span>
+          {{vehicle.make.label}} {{vehicle.model.label}} {{vehicle.year}}
+          <span ng-if="vehicle.style.trim"> {{vehicle.style.trim}}</span>
+          |
+          <b> {{vehicle.prices[0].price.amount|currency:undefined:0}}
+            <span ng-if="!vehicle.prices[0].price.amount">NA</span>
+          </b>
+        </div>
+
+        <div class="item text-center" ng-if="vehicle.assets.dealerPhotos.length>0">
+          <img ng-src="{{imageServerUrl}}{{vehicle.assets.dealerPhotos[0].path}}"
+               width="250" height="250" fallback-src="img/car-icon.png"/>
+        </div>
+
+        <div class="item text-center" ng-if="!vehicle.assets.dealerPhotos">
+          <img ng-src="img/car-icon.png" width="250" height="250"/>
+        </div>
+
+        <div class="item">
+          <span class="row mute"> {{vehicle.vin}}</span>
+          <span class="row mute"> {{vehicle.preOwned?"Used":"New"}}</span>
+          <span class="row mute"> Certified &nbsp; <i
+            ng-class="vehicle.certified?'ion-checkmark':'ion-close'"></i></span>
+        </div>
+
+
+        <div class="item">
+          <button class="button button-block button-assertive" ng-click="onCalculate()"
+                  ng-disabled="!vehicle.prices[0].price.amount">
+            Get Quote
+            <ion-spinner icon="android" ng-show="calculating"></ion-spinner>
+          </button>
+        </div>
+
+        <div ng-repeat="description in vehicle.descriptions" class="mute">
+          {{description.description}}
+        </div>
+      </div>
+    </div>
+
+
+    <div ng-show="payment" class="item row">
+      <div class="col">
+        <button ng-class="showFinance?'button-balanced':''" class="button button-small button-stable tab-btn"
+                ng-click="togglePayment(0)">
+          Finance
+        </button>
+      </div>
+
+      <div class="col">
+        <button ng-class="showLease?'button-balanced':''" class="button button-small button-stable tab-btn"
+                ng-click="togglePayment(1)">
+          Lease
+        </button>
+      </div>
+
+      <div class="col">
+        <button ng-class="showCash?'button-balanced':''" class="button button-small button-stable tab-btn"
+                ng-click="togglePayment(2)">
+          Cash
+        </button>
+      </div>
+    </div>
+
+    <div>
+      <div ng-show="showFinance">
+        <div class="card" ng-click="showPaymentStructure(payment,'Finance')"
+             ng-repeat="payment in financePayment.payments|orderBy:predicate">
+          <div class="row">
+            <div class="col-90">
+              <div class="row text-center payment">
+                {{payment.payment | currency}}
+                <small>&nbsp;/month</small>
+              </div>
+
+              <div class="row term">
+                {{payment.term}} months @ {{payment.rate}}%
+              </div>
+            </div>
+
+            <div class="col  col-10 col-center">
+              <i class="big-icon ion-chevron-right"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div ng-show="showLease">
+        <div class="card" ng-click="showPaymentStructure(payment,'Lease')"
+             ng-repeat="payment in leasePayment.payments|orderBy:predicate">
+          <div class="row">
+            <div class="col-90">
+              <div class="row text-center payment">
+                {{payment.payment | currency}}
+                <small>&nbsp;/month</small>
+              </div>
+
+              <div class="row term">
+                {{payment.term}} months @ {{payment.rate}}%
+              </div>
+            </div>
+
+            <div class="col  col-10 col-center">
+              <i class="big-icon ion-chevron-right"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div ng-show="showCash">
+        <div class="card" ng-click="showPaymentStructure(payment,'Cash')" ng-repeat="payment in cashPayment.payments">
+          <div class="row">
+            <div class="col-90">
+              <div class="row text-center payment">
+                {{payment.payment | currency}}
+              </div>
+            </div>
+            <div class="col-10 col-center">
+              <i class="big-icon ion-chevron-right"></i>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!--Suggested vehicles-->
+    <div class="card" ng-if="suggestedVehicles.length>0">
+      <div class="item">
+        <span class="mute"> More from {{vehicle.make.label}}</span>
+      </div>
+      <div class="row">
+        <div class="col-50" ng-repeat="vehicle in suggestedVehicles" ng-click="onVehicleSelected(vehicle.vehicle)">
+          <div class="row mute">
+            <b>{{vehicle.vehicle.make.label}} {{vehicle.vehicle.model.label}} {{vehicle.vehicle.year}}</b>
+          </div>
+
+
+          <div ng-if="vehicle.vehicle.assets.dealerPhotos">
+            <img ng-src="{{serverURL}}{{vehicle.vehicle.assets.dealerPhotos[0].path}}"
+                 width="100" height="140" fallback-src="img/car-icon.png"/>
+          </div>
+
+          <div ng-if="!vehicle.vehicle.assets.dealerPhotos">
+            <img ng-src="img/car-icon.png" width="100" height="100"/>
+          </div>
+          <div class="row">
+            MSRP
+            <b> &nbsp; {{vehicle.vehicle.prices[0].price.amount| currency:undefined:0}}
+              <span ng-if="!vehicle.vehicle.prices[0].price.amount">NA</span>
+            </b>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </ion-content>
+
+</ion-view>

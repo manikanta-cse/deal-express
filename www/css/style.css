@@ -1,0 +1,103 @@
+.mute {
+  opacity: 0.5;
+}
+
+.spinner {
+  margin-top: 30%;
+}
+
+.payment {
+  font-size: 22px;
+  margin: 10px;
+}
+
+.term {
+  font-size: 12px;
+  margin: 10px;
+}
+
+.payment-card {
+  margin-top: 90%;
+}
+
+.tab-btn {
+  width: 100px;
+}
+
+.ionic .item-radio .radio-icon {
+  left: 0
+}
+
+.ion-android-done, .ion-android-close {
+  font-size: 40px;
+}
+
+.middle-align {
+  margin-top: 20%;
+}
+
+.big-icon {
+  font-size: 18px;
+}
+
+#store .card-border {
+  border: 1px solid #ddd;
+}
+
+.center {
+  text-align: center;
+}
+
+.ion-checkmark-circled {
+  font-size: 20px;
+}
+
+.ion-android-close {
+  font-size: 20px;
+  color: dimgray;
+}
+
+.margin-left{
+  margin-left: -30px;
+  padding: 10px;
+}
+
+.padding-left-10{
+  padding-left: 10px;
+}
+
+.input-color{
+  background-color: rgb(238, 238, 238);
+}
+
+.float-button {
+
+  background-color: #33cd5f;
+  opacity: 0.9;
+  color: white;
+  border-radius: 50%;
+  /*border-radius:15% 0 0 0;*/
+  width: 30px;
+  padding: 25px;
+  font-size: 40px;
+  position: fixed;
+  bottom: 5%; /* Adjust height */
+  right: 5%; /* Adjust position */
+  z-index: 1000;
+}
+
+.float-button .height_fix {
+  margin-top: 100%;
+  border: 1px solid red;
+}
+
+.float-button .content {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  margin-top: -20px;
+  color: white;
+}

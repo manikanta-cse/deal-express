@@ -1,0 +1,104 @@
+<ion-view title="Account">
+    <ion-content ng-controller="AccountCtrl">
+
+        <div class="text-right">
+            <button class="button" ng-show="isView" ng-click="show(mode.edit)">
+                <i class="icon ion-edit right"></i>
+            </button>
+            <button class="button" ng-show="!isView  && userExists()" ng-click="show(mode.view)">
+                <i class="icon ion-information"></i>
+            </button>
+        </div>
+
+        <div class="list" ng-show="!isView">
+            <form name="accountForm" novalidate disable-tap>
+                <label class="item item-input">
+                    <input type="text" placeholder="First Name" name="fname" ng-model="user.fname" required>
+                </label>
+                <label class="item item-input">
+                    <input type="text" placeholder="Last Name" name="lname" ng-model="user.lname" required>
+                </label>
+
+                <label class="item item-input">
+                    <input type="text" placeholder="Address" name="address" address-auto-complete
+                           on-place-changed="onPlaceChanged(place)"
+                           ng-model="user.address1" required>
+                </label>
+                <label class="item item-input">
+                    <input type="text" placeholder="City" name="city" ng-model="user.city" required>
+                </label>
+                <label class="item item-input item-select">
+                    <div class="input-label">
+                        State
+                    </div>
+                    <select ng-model="user.state"
+                            ng-options="option.abbreviation as option.name for option in states">
+                    </select>
+                </label>
+                <label class="item item-input">
+                    <input type="text" placeholder="County" name="county" ng-model="user.county">
+                </label>
+                <label class="item item-input">
+                    <div>
+                        <input type="text" placeholder="Zip Code" name="zip" ng-model="user.zipCode" required>
+                    </div>
+                    <div>
+                        <input type="text" placeholder="Zip Code4" name="zip4" ng-model="user.zipCodeFour">
+                    </div>
+                </label>
+                <label class="item item-input item-select">
+                    <div class="input-label">
+                        Credit Status
+                    </div>
+                    <select ng-model="user.customerCredit" name="creditstatus" required>
+                        <option>Excellent</option>
+                        <option>Good</option>
+                        <option>Average</option>
+                        <option>Poor</option>
+                    </select>
+                </label>
+
+                <div class="button-bar">
+                    <a class="button button-block button-assertive ion-android-close"
+                       ng-click="cancel()">
+                    </a>
+                    <a class="button button-block button-balanced ion-android-done"
+                            ng-disabled="accountForm.$invalid"
+                            ng-click="save(user)">
+                    </a>
+                </div>
+            </form>
+        </div>
+
+        <div class="list" ng-show="isView">
+            <label class="item item-input">
+                <span class="input-label">{{user.fname}}</span>
+                <i class="ion-person icon-left"></i>
+            </label>
+            <label class="item item-input">
+                <span class="input-label">{{user.lname}}</span>
+            </label>
+            <label class="item item-input" ng-if="user.address1">
+                <span class="input-label">{{user.address1}}</span>
+                <i class="ion-android-pin icon-left"></i>
+            </label>
+            <label class="item item-input" ng-if="user.city">
+                <span class="input-label">{{user.city}}</span>
+            </label>
+            <label class="item item-input" ng-if="user.state">
+                <span class="input-label">{{user.state}}</span>
+            </label>
+            <label class="item item-input" ng-if="user.county">
+                <span class="input-label">{{user.county}}</span>
+            </label>
+            <label class="item item-input" ng-if="user.zipCode">
+                <span class="input-label">{{user.zipCode}}{{user.zipCodeFour? " - ":""}}{{user.zipCodeFour}}</span>
+            </label>
+            <label class="item item-input" ng-if="user.zipCode">
+                <span class="input-label">{{user.customerCredit}}</span>
+                <i class="ion-card icon-left"></i>
+            </label>
+        </div>
+
+    </ion-content>
+</ion-view>

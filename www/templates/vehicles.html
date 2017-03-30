@@ -1,0 +1,88 @@
+<ion-view title="Vehicles">
+
+  <form ng-submit="onSearch()">
+  <ion-content scroll="false">
+    <div class="item item-input-inset">
+      <label class="item-input-wrapper">
+        <input type="text" placeholder="search by brand" ng-model="$parent.search"/>
+      </label>
+      <a ng-click="clearSearch()" class="icon margin-left ion-android-close"></a>
+      <div class="text-right padding-left-10">
+        <button class="input-color button button-small">
+          Go
+          <i class="ion-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+    <hr>
+  </ion-content>
+  </form>
+  <ion-content scroll="true" on-scroll="getScrollPosition()">
+
+    <ion-refresher
+      pulling-text="Pull to refresh..."
+      on-refresh="doRefresh()">
+    </ion-refresher>
+
+
+    <!--Content-->
+    <div>
+      <div class="list">
+        <div ng-click="onVehicleSelected(vehicle.vehicle,imageServerURL)" class="item row" ng-repeat="vehicle in vehicles">
+
+          <div class="col-10"></div>
+          <div class="col-80 col">
+            <div class="row">
+              <b>{{vehicle.vehicle.make.label}} {{vehicle.vehicle.model.label}} {{vehicle.vehicle.year}}</b>
+            </div>
+
+            <div  ng-if="vehicle.vehicle.assets.dealerPhotos">
+              <img  ng-src="{{imageServerURL}}{{vehicle.vehicle.assets.dealerPhotos[0].path}}"
+                   width="150" height="140" fallback-src="img/car-icon.png"/>
+            </div>
+
+            <div ng-if="!vehicle.vehicle.assets.dealerPhotos">
+              <img ng-src="img/car-icon.png" width="140" height="140"/>
+            </div>
+
+
+            <div class="row">
+              <span class="mute">{{vehicle.vehicle.vin}}
+              </span>
+            </div>
+
+            <div class="row">
+              <span class="mute">{{vehicle.vehicle.preOwned?"Used":"New"}}
+              </span>
+            </div>
+
+            <div class="row">
+              MSRP
+              <b> &nbsp; {{vehicle.vehicle.prices[0].price.amount| currency:undefined:0}}
+                <span ng-if="!vehicle.vehicle.prices[0].price.amount">NA</span>
+              </b>
+            </div>
+
+          </div>
+          <div class="col col-center">
+            <i class="ion-chevron-right big-icon"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--infinite scroll-->
+    <ion-infinite-scroll
+      on-infinite="loadMore()"
+      distance="5%">
+    </ion-infinite-scroll>
+
+  </ion-content>
+  <div class="float-button" ng-show="sttButton" ng-click="scrollToTop()">
+     <span class="height-fix">
+        <a class="content">
+          <i class="ion-ios-arrow-up"> </i>
+        </a>
+       </span>
+  </div>
+</ion-view>
